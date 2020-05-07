@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/splitwise_OOD.iml" filepath="$PROJECT_DIR$/splitwise_OOD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cli_Splitwise.iml" filepath="$PROJECT_DIR$/Cli_Splitwise.iml" />
     </modules>
   </component>
 </project>
