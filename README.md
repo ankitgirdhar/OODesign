@@ -9,5 +9,6 @@ This Directory Contains following Design Implementations(List updated regularly)
 5) Parking Lot
 6) Elevator
 7) Calendar
+8) Notification(Observer)
 
 Email me at ankit14136@iiitd.ac.in in case of any queries.
