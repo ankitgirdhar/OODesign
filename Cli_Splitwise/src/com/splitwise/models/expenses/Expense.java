@@ -38,9 +38,9 @@ public abstract class Expense extends Auditable {
         return Utils.isApproxEqual(sum, getTotalAmount());
     }
 
-    abstract void checkTypes() throws InvalidSplitTypeException;
+    public abstract void checkTypes() throws InvalidSplitTypeException;
 
-    abstract void calculateSplits();
+    public abstract void calculateSplits();
 
     public static ExpenseType getType() {
         return type;

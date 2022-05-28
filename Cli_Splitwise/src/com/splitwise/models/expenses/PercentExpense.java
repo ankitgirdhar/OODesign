@@ -15,7 +15,7 @@ public class PercentExpense extends Expense {
     }
 
     @Override
-    void checkTypes() throws InvalidSplitTypeException {
+    public void checkTypes() throws InvalidSplitTypeException {
         List<Split> splits = getSplits();
         for(Split s : splits) {
             if(!(s instanceof PercentageSplit))
@@ -24,7 +24,7 @@ public class PercentExpense extends Expense {
     }
 
     @Override
-    void calculateSplits() {
+    public void calculateSplits() {
         double amount=0;
         List<Split> splits = getSplits();
         for(Split s : splits) {

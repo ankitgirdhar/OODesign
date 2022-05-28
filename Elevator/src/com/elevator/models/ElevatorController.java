@@ -28,8 +28,19 @@ public class ElevatorController {
         for(int i=0;i<elevatorCount ;i++) {
             Elevator elevator = new Elevator(i+1);
             elevatorList.add(elevator);
-            Thread t = new Thread(elevator);
-            t.start();
+            elevator.start();
+        }
+    }
+
+    public void stopAllElevators() throws InterruptedException {
+        for(Elevator e : elevatorList)
+        {
+            if(e.isAlive())
+            {
+                System.out.println("Stopping elevator: " + e.getElevatorNumber());
+                e.setShouldExit(true);
+                e.join();
+            }
         }
     }
 
@@ -87,7 +98,7 @@ public class ElevatorController {
 
     public Elevator getElevatorInfo(int elevatorNum) throws InvalidElevatorNumberException {
         if(elevatorList == null) return  null;
-        if(elevatorNum > elevatorList.size())
+        if(elevatorNum > elevatorList.size() || elevatorNum < 1)
             throw new InvalidElevatorNumberException("Enter valid elevator number!!");
 
         return elevatorList.get(elevatorNum - 1);

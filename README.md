@@ -12,4 +12,7 @@ This Directory Contains following Design Implementations(List updated regularly)
 8) Notification(Observer)
 
 Email me at ankit14136@iiitd.ac.in in case of any queries.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6324e4debbdd414d80a58aa9b0a7f06958062192

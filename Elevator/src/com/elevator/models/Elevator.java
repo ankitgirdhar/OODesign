@@ -4,7 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 
-public class Elevator implements Runnable {
+public class Elevator extends Thread {
+    private boolean shouldExit = false;
+
+    public void setShouldExit(boolean shouldExit) {
+        this.shouldExit = shouldExit;
+    }
+
     private ElevatorStatus elevatorStatus;
     private int currentFloor;
     private TreeSet<Integer> nextUpFloors;
@@ -123,6 +129,8 @@ public class Elevator implements Runnable {
     public void run() {
         while (true) {
             try {
+                if(shouldExit)
+                    break;
 
                 if( elevatorStatus != ElevatorStatus.MAINTAINANCE) {
                     move();

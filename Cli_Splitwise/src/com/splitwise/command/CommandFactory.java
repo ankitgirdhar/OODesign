@@ -15,7 +15,7 @@ public class CommandFactory {
         commandMap.put("show", new ShowCommand());
     }
 
-    public static CommandFactory getInstance() {
+    public static synchronized CommandFactory getInstance() {
         if(INSTANCE==null)
             INSTANCE = new CommandFactory();
         return INSTANCE;

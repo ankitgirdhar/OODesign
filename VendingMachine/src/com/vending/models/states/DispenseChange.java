@@ -25,6 +25,7 @@ public class DispenseChange implements State {
         int change = this.vendingMachine.getCollectedCash() - this.vendingMachine.getProductPriceMap().get(productCode);
         System.out.println("Change of" + change + " is returned!!");
         this.vendingMachine.setCollectedCash(0);
+        this.vendingMachine.setState(new Ready(vendingMachine));
     }
 
     @Override

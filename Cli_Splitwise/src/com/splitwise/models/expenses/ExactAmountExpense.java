@@ -13,7 +13,7 @@ public class ExactAmountExpense extends Expense {
     }
 
     @Override
-    void checkTypes() throws InvalidSplitTypeException {
+    public void checkTypes() throws InvalidSplitTypeException {
         List<Split> splits = getSplits();
         for(Split s : splits) {
             if(!(s instanceof ExactAmountSplit))
@@ -22,6 +22,6 @@ public class ExactAmountExpense extends Expense {
     }
 
     @Override
-    void calculateSplits() {
+    public void calculateSplits() {
     }
 }

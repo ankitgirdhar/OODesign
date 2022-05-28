@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ChessController",
+            "request": "launch",
+            "mainClass": "com.chess.ChessController"
+        }
+    ]
+}

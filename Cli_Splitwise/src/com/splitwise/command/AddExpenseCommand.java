@@ -16,9 +16,10 @@ import com.splitwise.models.splits.SplitFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddExpenseCommand implements Command{
+public class AddExpenseCommand implements Command {
     @Override
-    public void execute(String[] cmd) throws InvalidExpenseTypeException, InvalidSplitTypeException, InvalidSplitsTotalException, NoSuchUserException {
+    public void execute(String[] cmd) throws InvalidExpenseTypeException, InvalidSplitTypeException,
+            InvalidSplitsTotalException, NoSuchUserException {
         BookKeeper bk = BookKeeper.getInstance();
         // 1. expense type
         ExpenseType expType = null;
@@ -47,15 +48,14 @@ public class AddExpenseCommand implements Command{
         // now make expense...
         Expense expense = null;
         try {
-            expense = ExpenseFactory.createExpense(expType,name,createdBy,totalAmount);
+            expense = ExpenseFactory.createExpense(expType, name, createdBy, totalAmount);
         } catch (InvalidExpenseTypeException | IllegalStateException ignore) {
 
         }
 
         // now add paid by and splits
 
-
-        if(cmd.length > 5) {
+        if (cmd.length > 5) {
             User paidBy = null;
             try {
                 paidBy = Utils.getUser(cmd[4]);
@@ -65,44 +65,42 @@ public class AddExpenseCommand implements Command{
             expense.setPaidBy(paidBy);
 
             int numberOfSplits = cmd.length - 6;
-            if(numberOfSplits%2 != 0) {
+            if (numberOfSplits % 2 != 0) {
                 System.out.println("Invalid input splits!!");
                 return;
             }
 
             // now add splits
             List<Split> splits = new ArrayList<Split>();
-            if(expType.equals(ExpenseType.EQUAL)) {
-                for(int i=0;i< numberOfSplits;i+=2) {
+            if (expType.equals(ExpenseType.EQUAL)) {
+                for (int i = 0; i < numberOfSplits; i += 2) {
                     User user = null;
                     try {
-                        user = Utils.getUser(cmd[6+i]);
+                        user = Utils.getUser(cmd[6 + i]);
                     } catch (NoSuchUserException e) {
                         System.out.println("no such user!!");
                         return;
                     }
 
-                    Split split = SplitFactory.createSplit(expType,user);
+                    Split split = SplitFactory.createSplit(expType, user);
                     splits.add(split);
                 }
-            }
-            else {
-                for(int i=0;i< numberOfSplits;i+=2) {
+            } else {
+                for (int i = 0; i < numberOfSplits; i += 2) {
                     User user = null;
                     try {
-                        user = Utils.getUser(cmd[6+i]);
+                        user = Utils.getUser(cmd[6 + i]);
                     } catch (NoSuchUserException e) {
                         System.out.println("no such user!!");
                         return;
                     }
-                    double amountOrPercent = Double.parseDouble(cmd[7+i]);
-                    Split split = SplitFactory.createSplit(expType,user,amountOrPercent);
+                    double amountOrPercent = Double.parseDouble(cmd[7 + i]);
+                    Split split = SplitFactory.createSplit(expType, user, amountOrPercent);
                     splits.add(split);
                 }
             }
 
             expense.setSplits(splits);
-
         }
 
         bk.addExpense(expense);

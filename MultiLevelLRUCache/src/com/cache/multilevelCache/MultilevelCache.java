@@ -18,7 +18,7 @@ public class MultilevelCache< K extends CacheKey, V>  implements IMultiLevelCach
         this.multiLevelCache = new HashMap<>(levels);
         this.capacity = capacity;
         this.levels = levels;
-        this.levelStart = 2;
+        this.levelStart = capacity;
         this.levelEnd = levelStart * levels;
         init();
     }
@@ -27,7 +27,7 @@ public class MultilevelCache< K extends CacheKey, V>  implements IMultiLevelCach
         this.multiLevelCache = new HashMap<>(levels);
         this.levels = 1;
         this.capacity = capacity;
-        this.levelStart = 2;
+        this.levelStart = capacity;
         this.levelEnd = levelStart * levels;
         init();
     }
@@ -44,20 +44,11 @@ public class MultilevelCache< K extends CacheKey, V>  implements IMultiLevelCach
         Set<Integer> levelSet = new HashSet();
         int level = id % levelEnd;
 
-        if(level < levelStart) {
-            levelSet.add(levelStart);
-            return levelSet;
-        }
-
         for(int i = levelStart ; i <= levelEnd ;i += levelStart) {
-            if(level > i)
-                levelSet.add(i);
-            else if(level <= i) {
-                levelSet.add(i);
+            levelSet.add(i);
+            if(level <= i)
                 break;
-            }
         }
-
         return levelSet;
     }
 

@@ -24,33 +24,38 @@ public class Game extends Auditable {
         this.gameStatus = GameStatus.PLAYING;
     }
 
-    public void addFirstPlayer(String name,String email, String password) {
-        p1 = new Player(name,email,password, ColorType.BLACK);
+    public void addFirstPlayer(String name, String email, String password) {
+        p1 = new Player(name, email, password, ColorType.BLACK);
         currentTurn = p1;
         System.out.println("Player 1 added!!");
     }
 
-    public void addSecondPlayer(String name,String email, String password) {
-        p1 = new Player(name,email,password, ColorType.WHITE);
+    public void addSecondPlayer(String name, String email, String password) {
+        p1 = new Player(name, email, password, ColorType.WHITE);
         System.out.println("Player 2 added!!");
     }
 
-    public void makeMove(Piece piece, int x, int y) throws InvalidMoveException, NoPieceFoundException, InvalidPlayerException {
-        if(currentTurn.getColorType() != piece.getColorType())
+    public void makeMove(Piece piece, int x, int y)
+            throws InvalidMoveException, NoPieceFoundException, InvalidPlayerException {
+        if (currentTurn.getColorType() != piece.getColorType())
+
             throw new InvalidPlayerException("piece color and player color do not match!!");
-        if(x<0 || y<0 || y>=8 || x>=8)
+
+        if (x < 0 || y < 0 || y >= 8 || x >= 8)
             throw new InvalidMoveException("move should be within the board!!");
 
-        if(!piece.canMove(x,y))
+        if (!piece.canMove(x, y))
             throw new InvalidMoveException("Move violates piece movement rules!!");
 
-        if(board.getPieceAtBlock(x,y) != null) {
-            if(board.getColorAtBlock(x,y) == currentTurn.getColorType())
+        if (board.getPieceAtBlock(x, y) != null) {
+            if (board.getColorAtBlock(x, y) == currentTurn.getColorType())
                 throw new InvalidMoveException("Cannot move at location where you have your own piece!!");
             else {
-                Piece p = board.getPieceAtBlock(x,y);
-                p.setKilled(true); p.setCurrentX(-1); p.setCurrentY(-1);
-                if(p.getType() == PieceType.KING) {
+                Piece p = board.getPieceAtBlock(x, y);
+                p.setKilled(true);
+                p.setCurrentX(-1);
+                p.setCurrentY(-1);
+                if (p.getType() == PieceType.KING) {
                     System.out.println(currentTurn.getAvatarName() + " Has won the match!! Congrats!");
                     endGame();
                 } else {
@@ -60,7 +65,7 @@ public class Game extends Auditable {
         }
         piece.setCurrentX(x);
         piece.setCurrentY(y);
-        if(currentTurn.getColorType() == p1.getColorType())
+        if (currentTurn.getColorType() == p1.getColorType())
             currentTurn = p2;
         else
             currentTurn = p1;
